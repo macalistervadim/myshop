@@ -9,7 +9,9 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-from decouple import config
+import os
+
+from dotenv import load_dotenv
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -136,8 +138,10 @@ CART_SESSION_ID = 'cart'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-
+load_dotenv()
 # Настроечные параметры Stripe
-STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY') # Публикуемый ключ
-STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY') # Секретный ключ
+STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY') # Публикуемый ключ
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY') # Секретный ключ
 STRIPE_API_VERSION = '2022-08-01'
+
+STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
