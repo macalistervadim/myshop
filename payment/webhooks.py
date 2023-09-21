@@ -10,16 +10,17 @@ def stripe_webhook(request):
     payload = request.body
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
     event = None
+
     try:
         event = stripe.Webhook.construct_event(
-                                            payload,
-                                            sig_header,
-                                            settings.STRIPE_WEBHOOK_SECRET)
+                    payload,
+                    sig_header,
+                    settings.STRIPE_WEBHOOK_SECRET)
     except ValueError as e:
-        # Недопустимая полезная нагрузка
+        # Invalid payload
         return HttpResponse(status=400)
     except stripe.error.SignatureVerificationError as e:
-        # Недопустимая подпись
+        # Invalid signature
         return HttpResponse(status=400)
 
     if event.type == 'checkout.session.completed':
@@ -29,10 +30,12 @@ def stripe_webhook(request):
                 order = Order.objects.get(id=session.client_reference_id)
             except Order.DoesNotExist:
                 return HttpResponse(status=404)
-            # пометить заказ как оплаченный
+            # mark order as paid
             order.paid = True
-            # сохранить ИД платежа Stripe
+            # store Stripe payment ID
             order.stripe_id = session.payment_intent
             order.save()
+            # launch asynchronous task
+            payment_completed.delay(order.id)
 
     return HttpResponse(status=200)

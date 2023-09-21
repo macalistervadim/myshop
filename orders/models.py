@@ -13,6 +13,7 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
+    stripe_id = models.CharField(max_length=250, blank=True)
 
     class Meta:
         ordering = ['-created']
@@ -28,28 +29,27 @@ class Order(models.Model):
 
     def get_stripe_url(self):
         if not self.stripe_id:
-            # никаких ассоциированных платежей
+            # no payment associated
             return ''
         if '_test_' in settings.STRIPE_SECRET_KEY:
-            # путь Stripe для тестовых платежей
+            # Stripe path for test payments
             path = '/test/'
         else:
-            # путь Stripe для настоящих платежей
+            # Stripe path for real payments
             path = '/'
         return f'https://dashboard.stripe.com{path}payments/{self.stripe_id}'
 
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,
-    related_name='items',
-    on_delete=models.CASCADE)
+                              related_name='items',
+                              on_delete=models.CASCADE)
     product = models.ForeignKey(Product,
-    related_name='order_items',
-    on_delete=models.CASCADE)
+                                related_name='order_items',
+                                on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10,
-    decimal_places=2)
+                                decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
-    stripe_id = models.CharField(max_length=250, blank=True)
 
     def __str__(self):
         return str(self.id)
