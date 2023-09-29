@@ -8,15 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-27 20:29+0600\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2023-09-29 17:47+0600\n"
+"PO-Revision-Date: 2023-09-29 17:50+0000\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.9.8\n"
 
 #: .\cart\forms.py:10
 msgid "Quantity"
@@ -33,6 +34,34 @@ msgstr "Inglés"
 #: .\myshop\settings.py:122
 msgid "Spanish"
 msgstr "Español"
+
+#: .\myshop\urls.py:27
+msgid "cart/"
+msgstr "carro/"
+
+#: .\myshop\urls.py:28
+msgid "orders/"
+msgstr "peddidos/"
+
+#: .\myshop\urls.py:29
+msgid "payment/"
+msgstr "pago/"
+
+#: .\myshop\urls.py:30
+msgid "coupons/"
+msgstr "cod/"
+
+#: .\payment\urls.py:9
+msgid "process/"
+msgstr "procesar/"
+
+#: .\payment\urls.py:10
+msgid "completed/"
+msgstr "compledato/"
+
+#: .\payment\urls.py:11
+msgid "canceled/"
+msgstr "canceted/"
 
 #: .\shop\templates\shop\base.html:7 .\shop\templates\shop\base.html:12
 msgid "My shop"
