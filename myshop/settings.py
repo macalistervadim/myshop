@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'coupons.apps.CouponsConfig',
 
     'rosetta',
+    'parler',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -160,3 +161,15 @@ STATIC_ROOT = BASE_DIR / 'static'
 LOCALE_PATHS = [
  BASE_DIR / 'locale',
 ]
+
+# настройки django-parler
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'en'},
+        {'code': 'es'},
+    ),
+    'default': {
+        'fallback': 'en',
+        'hide_untranslated': False,
+    }
+}
